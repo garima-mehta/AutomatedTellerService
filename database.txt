@@ -1,6 +1,6 @@
 create table User_Details
 (
-User_Id int,
+User_Id int primary key,
 First_Name varchar(255),
 Last_Name varchar(255),
 Email varchar(255),
