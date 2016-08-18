@@ -1,4 +1,4 @@
-package txttohtml;
+ package txttohtml;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -49,11 +49,17 @@ public class Parser {
 			}
 			if(text[i].equalsIgnoreCase("balance")) {
 				
-				query = "select Current_Balance from Prepaid";
+				query = "select Current_Balance from Prepaid where User_id=?";
 				
 				try {
+					ps.setInt(1, user_id);
 					ps = con.prepareStatement(query);
 					rs = ps.executeQuery();
+					int cub = 0;
+					if(rs.next()) {
+						 cub = rs.getInt(1);
+					}
+					String cuba = Integer.toString(cub);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -65,6 +71,9 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					if(rs.next()) {
+						return rs.getString(1);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -78,6 +87,9 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					if(rs.next()) {
+						return rs.getString(1);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -91,6 +103,9 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					if(rs.next()) {
+						return rs.getString(1);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -104,6 +119,11 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					int in;
+					if(rs.next()) {
+						in = rs.getInt(1);
+						return (Integer.toString(in));
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -117,6 +137,13 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					int in;
+					if(rs.next()) {
+						in = rs.getInt(1);
+						return Integer.toString(in);
+					}
+				
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -130,6 +157,11 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					int in;
+					if(rs.next()) {
+						in = rs.getInt(1);
+						return Integer.toString(in);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -142,6 +174,12 @@ public class Parser {
 				try {
 					ps = con.prepareStatement(query);
 					rs = ps.executeQuery();
+					String res ="";
+					while(rs.next()) {
+						res +=rs.getString(1);
+						res += "/n";
+					}
+					return res;
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -155,6 +193,12 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					String res ="";
+					while(rs.next()) {
+						res +=rs.getString(1);
+						res += "/n";
+					}
+					return res;
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -168,6 +212,10 @@ public class Parser {
 					ps = con.prepareStatement(query);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
+					String res;
+					if(rs.next()) {
+						res = rs.getString(1);
+					}
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
