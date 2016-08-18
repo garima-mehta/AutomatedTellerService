@@ -1,0 +1,271 @@
+create table User_Details
+(
+User_Id int,
+First_Name varchar(255),
+Last_Name varchar(255),
+Email varchar(255),
+Password varchar(15)
+);
+
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (1, 'Ram', 'Singh', 'rs@gmail.com', 'ram12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (2, 'Rohan', 'Sharma', 'ros@gmail.com', 'roh12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (3, 'Shyam', 'Sundar', 'sas@gmail.com', 'shy12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (4, 'Sam', 'Mathew', 'mas@gmail.com', 'sam12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (5, 'Messi', 'Shinde', 'mes@gmail.com', 'mes12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (6, 'Cersei', 'Lannister', 'cl@gmail.com', 'cer12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (7, 'Joey', 'Singh', 'js@gmail.com', 'joe12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (8, 'Mickey', 'Mouse', 'mm@gmail.com', 'mic12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (9, 'Walter', 'White', 'ww@gmail.com', 'wal12');
+insert into User_details(User_Id, First_Name, Last_Name, Email, Password)
+Values (10, 'Arya', 'Stark', 'as@gmail.com', 'ary12');
+
+create table User_Service
+(
+User_Id int not null primary key,
+Prepaid varchar(5),
+Postpaid varchar(5),
+Broadband varchar(5)
+);
+
+alter table User_Service
+add foreign key (User_Id)
+references User_Details(User_Id);
+
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (1, 'No', 'Yes', 'Yes');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (2, 'No', 'Yes', 'No');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (3, 'Yes', 'No', 'Yes');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (4, 'Yes', 'No', 'No');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (5, 'No', 'No', 'Yes');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (6, 'Yes', 'No', 'No');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (7, 'No', 'No', 'Yes');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (8, 'No', 'Yes', 'Yes');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (9, 'Yes', 'No', 'Yes');
+insert into User_Service(User_Id, Prepaid, Postpaid, Broadband)
+Values (10, 'Yes', 'No', 'No');
+
+create table Prepaid
+(
+User_Id int not null primary key,
+Current_Balance int,
+Validity date
+);
+
+alter table Prepaid
+add foreign key (User_Id)
+references User_Details(User_Id);
+
+insert into Prepaid(User_Id, Current_Balance,Validity)
+Values (3, 250,'12-Jan-15');
+insert into Prepaid(User_Id, Current_Balance,Validity)
+Values (4, 112,'22-May-17');
+insert into Prepaid(User_Id, Current_Balance,Validity)
+Values (6, 50,'11-Apr-18');
+insert into Prepaid(User_Id, Current_Balance,Validity)
+Values (9, 03,'01-Jan-19');
+insert into Prepaid(User_Id, Current_Balance,Validity)
+Values (10, 255,'08-Jan-25');
+
+create table Postpaid
+(
+User_Id int not null primary key,
+Bill_amt int,
+DueDate date,
+Plan_amt int
+);
+
+alter table Postpaid
+add foreign key (User_Id)
+references User_Details(User_Id);
+
+insert into Postpaid(User_Id, Bill_amt,DueDate,Plan_amt)
+Values (1, 400,'12-Sep-16',299);
+insert into Postpaid(User_Id, Bill_amt,DueDate,Plan_amt)
+Values (2, 236,'22-Oct-16',151);
+insert into Postpaid(User_Id, Bill_amt,DueDate,Plan_amt)
+Values (8, 301,'11-Nov-16',199);
+
+create table Broadband
+(
+User_Id int not null primary key,
+Bill_amt int,
+DueDate date,
+Limit int,
+Current_usage int
+);
+
+alter table Broadband
+add foreign key (User_Id)
+references User_Details(User_Id);
+
+insert into Broadband(User_Id, Bill_amt,DueDate,Limit,Current_usage)
+Values (1, 200,'12-Aug-16',1024,588);
+insert into Broadband(User_Id, Bill_amt,DueDate,Limit,Current_usage)
+Values (3, 500,'14-Nov-16',2048,1608);
+insert into Broadband(User_Id, Bill_amt,DueDate,Limit,Current_usage)
+Values (5, 101,'25-Aug-16',500,349);
+insert into Broadband(User_Id, Bill_amt,DueDate,Limit,Current_usage)
+Values (7, 251,'05-Sep-16',4096,2511);
+insert into Broadband(User_Id, Bill_amt,DueDate,Limit,Current_usage)
+Values (8, 359,'15-Jan-17',3072,1129);
+insert into Broadband(User_Id, Bill_amt,DueDate,Limit,Current_usage)
+Values (9, 80,'18-Sep-16',1024,128);
+
+create table Offers
+(
+Amount int,
+Prepaid varchar(100),
+Postpaid varchar(100),
+Broadband varchar(50)
+);
+
+insert into Offers(Amount,Prepaid,Postpaid,Broadband)
+Values (99,'80TT+ 20SMS','90TT+ 50MB+ 20SMS','500MB');
+insert into Offers(Amount,Prepaid,Postpaid,Broadband)
+Values (151,'120TT+ 50MB+ 30SMS','150TT+ 100MB+ 50SMS','1GB');
+insert into Offers(Amount,Prepaid,Postpaid,Broadband)
+Values (199,'180TT+ 100MB+ 80SMS','190TT+ 200MB+ 100SMS','2GB');
+insert into Offers(Amount,Prepaid,Postpaid,Broadband)
+Values (299,'250TT+ 500MB+ 100SMS','280TT+ 1GB+ 100SMS','2.5GB');
+insert into Offers(Amount,Prepaid,Postpaid,Broadband)
+Values (399,'350TT+ 1GB+ 150SMS','350TT+ 2GB+ 200SMS','3GB');
+insert into Offers(Amount,Prepaid,Postpaid,Broadband)
+Values (499,'450TT+ 1.5GB+ 200SMS','480TT+ 2.5GB+ 300SMS','6GB');
+
+create table Best_Offers
+(
+User_Id int not null primary key,
+Prepaid varchar(100),
+Postpaid varchar(100),
+Broadband varchar(100)
+);
+
+alter table Best_Offers
+add foreign key (User_Id)
+references User_Details(User_Id);
+
+insert into Best_Offers(User_Id,Postpaid)
+Values (1, 'RC99-99TT+50MB');
+insert into Best_Offers(User_Id,Postpaid)
+Values (2, 'RC132-150TT+100MB');
+insert into Best_Offers(User_Id,Postpaid)
+Values (8, 'RC200-2.5GB');
+insert into Best_Offers(User_Id,Prepaid)
+Values (6, 'RC150-151TT+500MB');
+insert into Best_Offers(User_Id,Prepaid)
+Values (9, 'RC70-70TT+100MB');
+insert into Best_Offers(User_Id,Prepaid)
+Values (10, 'RC45-40TT+20SMS');
+insert into Best_Offers(User_Id,Broadband)
+Values (3, 'RC160-2GB');
+insert into Best_Offers(User_Id,Broadband)
+Values (5, 'RC40-100MB');
+insert into Best_Offers(User_Id,Broadband)
+Values (7, 'RC147-1.5GB');
+
+create table Transaction
+(
+S_No int,
+User_Id int,
+Transaction_Id int not null primary key,
+Transaction_details varchar(255)
+);
+
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (1,1,101,'RC200 Topup on 15Jan,2016');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (2,1,102,'RC199  Data Pack 05Mar,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (3,1,103,'RC99  STD Pack 15Apr,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (4,1,104,'RC300  Roaming Pack 15May,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (5,1,105,'RC140  Topup 05Aug,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (6,2,201,'RC199  Data Pack 05Mar,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (7,2,202,'RC199  Roaming Pack 15May,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (8,3,301,'RC199  Data Pack 25May,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (9,5,501,'RC99  Data Pack 05Jul,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (10,5,502,'RC190  Topup 05Aug,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (11,6,601,'RC199  Data Pack 05Mar,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (12,8,801,'RC251  Data Pack 10Jan,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (13,9,901,'RC199  Data Pack 08Feb,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (14,9,902,'RC100  Topup 18Jun,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (15,9,903,'RC150  Data Pack 28Jun,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (16,9,904,'RC115  Data Pack 08Jul,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (17,9,905,'RC399  Data Pack 18Aug,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (18,10,001,'RC50  Topup 08May,16');
+insert into Transaction(S_No,User_Id,Transaction_Id,Transaction_details)
+Values (19,10,002,'RC199  Data Pack 08Mar,16');
+
+alter table User_Details
+add Phone_No number;
+
+UPDATE User_Details
+SET phone_no=9000000001
+WHERE user_id=1; 
+
+UPDATE User_Details
+SET phone_no=9000000002
+WHERE user_id=2;
+
+UPDATE User_Details
+SET phone_no=9000000003
+WHERE user_id=3;
+
+UPDATE User_Details
+SET phone_no=9000000004
+WHERE user_id=4;
+
+UPDATE User_Details
+SET phone_no=9000000005
+WHERE user_id=5;
+
+UPDATE User_Details
+SET phone_no=9000000006
+WHERE user_id=6;
+
+UPDATE User_Details
+SET phone_no=9000000007
+WHERE user_id=7;
+
+UPDATE User_Details
+SET phone_no=9000000008
+WHERE user_id=8;
+
+UPDATE User_Details
+SET phone_no=9000000009
+WHERE user_id=9;
+
+UPDATE User_Details
+SET phone_no=9000000010
+WHERE user_id=10;
