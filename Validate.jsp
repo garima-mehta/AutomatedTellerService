@@ -29,6 +29,8 @@ catch(Exception e) {
 		
 	}
 	int usid = Integer.parseInt(request.getParameter("uname"));
+	HttpSession session1 = request.getSession();
+	 session1.setAttribute("username", usid);
 	String password = request.getParameter("psw");
 	System.out.println(password);
 	String query = "select password from User_Details where User_Id = ?";
@@ -39,8 +41,9 @@ catch(Exception e) {
 	if(rs.next())
 	{
 		if(rs.getString("password").equals(password)) {
-		rd= request.getRequestDispatcher("index.jsp");
-		rd.forward(request,response);
+		/* rd= request.getRequestDispatcher("index.jsp");
+		rd.forward(request,response); */
+		response.sendRedirect("index.jsp");
 		}
 		else {
 			rd= request.getRequestDispatcher("login.html");

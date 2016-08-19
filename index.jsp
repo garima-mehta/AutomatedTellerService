@@ -7,15 +7,24 @@
 <link type="text/css" rel="stylesheet" href="style.css" />
 </head>
 <body>
+<%
+HttpSession session1 = request.getSession();
+String usid = session1.getAttribute("username").toString();
+int id_user = Integer.parseInt(usid); 
+%>
 <div id="wrapper">
     <div id="menu">
-        <p class="welcome">Welcome, <b></b></p>
+        <p class="welcome">Welcome, <%=id_user %> <b></b></p>
         <p class="logout"><a id="exit" href="#">Exit Chat</a></p>
         <div style="clear:both"></div>
     </div>
      
     <div id="chatbox">
     <%
+    
+	/* HttpSession session1 = request.getSession();
+	  String usid = session1.getAttribute("username").toString();
+	  int id_user = Integer.parseInt(usid); */
     String filePath= "C:\\Users\\Administrator\\workspace\\AutomatedTellerService\\WebContent\\log.html";
     BufferedReader reader = new BufferedReader(new FileReader(filePath));
     //BufferedReader br = new InputStreamReader(new FileInputStream(txtFilePath));
@@ -29,7 +38,7 @@
 
     reader.close();
     
-
+    
     %>
     
     </div>
@@ -47,7 +56,9 @@
 		//If user wants to end session
 		$("#exit").click(function(){
 			var exit = confirm("Are you sure you want to end the session?");
-			if(exit==true){window.location = 'logout.jsp?logout=true';}		
+			if(exit==true){
+				window.location = 'logout.jsp?logout=true';}	
+			
 		});
 	});
 	
