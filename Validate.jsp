@@ -28,6 +28,7 @@
 catch(Exception e) {
 		
 	}
+	String fname = null;
 	int usid = Integer.parseInt(request.getParameter("uname"));
 	HttpSession session1 = request.getSession();
 	 session1.setAttribute("username", usid);
@@ -41,8 +42,14 @@ catch(Exception e) {
 	if(rs.next())
 	{
 		if(rs.getString("password").equals(password)) {
-		/* rd= request.getRequestDispatcher("index.jsp");
-		rd.forward(request,response); */
+			String query1 = "select First_name from User_Details where User_Id=?";
+			ps = conn.prepareStatement(query1);
+			ps.setInt(1, usid);
+			rs = ps.executeQuery();
+			while(rs.next()){
+			fname = rs.getString(1);
+			}
+			session1.setAttribute("firstname", fname);
 		response.sendRedirect("index.jsp");
 		}
 		else {
@@ -56,7 +63,7 @@ catch(Exception e) {
 	}
 	rs.close();
 	conn.close();
-	
+		
 	
 	
 
@@ -64,3 +71,4 @@ catch(Exception e) {
 
 </body>
 </html>
+

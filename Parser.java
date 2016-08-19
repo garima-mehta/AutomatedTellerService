@@ -46,15 +46,16 @@ public class Parser {
 				try {
 					ps = con.prepareStatement(query);
 					rs = ps.executeQuery();
-					String res = "The offers available to you are: <br>";
+					String res = "The offers available to you are: \n";
 					while(rs.next()) {
 						if(rs.getString(2) != null)
-						res += rs.getString(2);
-						if(rs.getString(3) != null)	
-						res += rs.getString(3);
-						if(rs.getString(4) != null)		
-						res += rs.getString(4);
-						res += "\n";
+							res += rs.getString(2);
+							if(rs.getString(3) != null)	
+							res += rs.getString(3);
+							if(rs.getString(4) != null)		
+							res += rs.getString(4);
+							res += "\n";
+
 					}
 					return res;
 				} catch (SQLException e) {
@@ -65,24 +66,42 @@ public class Parser {
 				
 			}
 			if(text[i].equalsIgnoreCase("balance")) {
-				
-				query = "select Current_Balance from Prepaid where User_id=?";
-				
+				String query1 = "select prepaid from User_Service where User_Id=?";
 				try {
 					
-					ps = con.prepareStatement(query);
+					ps = con.prepareStatement(query1);
 					ps.setInt(1, user_id);
 					rs = ps.executeQuery();
-					int cub = 0;
+					String str = null;
 					if(rs.next()) {
-						 cub = rs.getInt(1);
+						 str = rs.getString(1);
 					}
-					String cuba = "Your current balance is: \n"+Integer.toString(cub);
-					return cuba;
+					if(str.equalsIgnoreCase("yes")){
+						query = "select Current_Balance from Prepaid where User_id=?";
+						
+						try {
+							
+							ps = con.prepareStatement(query);
+							ps.setInt(1, user_id);
+							rs = ps.executeQuery();
+							int cub = 0;
+							if(rs.next()) {
+								 cub = rs.getInt(1);
+							}
+							String cuba = "Your current balance is: \n"+Integer.toString(cub);
+							return cuba;
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else
+						return "You are not a registered prepaid user. Check for bill amount";
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			
 			}
 			if(text[i].equalsIgnoreCase("prepaid")&&text[i+1].equalsIgnoreCase("plans"))  {
 				query = "Select Prepaid from Offers where Amount < (Select Current_Balance from Prepaid where User_Id=?)";
@@ -291,3 +310,4 @@ public class Parser {
 	}
 	
 }
+
