@@ -46,10 +46,13 @@ public class Parser {
 				try {
 					ps = con.prepareStatement(query);
 					rs = ps.executeQuery();
-					String res = "The offers available to you are: \n";
+					String res = "The offers available to you are: <br>";
 					while(rs.next()) {
+						if(rs.getString(2) != null)
 						res += rs.getString(2);
+						if(rs.getString(3) != null)	
 						res += rs.getString(3);
+						if(rs.getString(4) != null)		
 						res += rs.getString(4);
 						res += "\n";
 					}
